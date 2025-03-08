@@ -18,10 +18,10 @@ public class Trangchu extends HttpServlet {
        
         if (session == null || session.getAttribute("username") == null) {
          
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+            request.getRequestDispatcher("/Trangchu/trangchu.jsp").forward(request, response);
         } else {
          
-            response.sendRedirect("welcome.jsp");
+            response.sendRedirect("/Trangchu/trangchu.jsp");
         }
     }
 }

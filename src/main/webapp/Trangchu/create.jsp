@@ -29,7 +29,7 @@
         }
     %>
 
-    <form action="dangki" method="POST">
+    <form action="dangki" method="POST"> <!-- Ensure this matches your servlet mapping -->
         <label for="username">Tài khoản:</label>
         <input type="text" id="username" name="username" required><br><br>
 

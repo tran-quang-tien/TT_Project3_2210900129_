@@ -20,14 +20,23 @@ public class dangnhap extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        
-        if ("admin".equals(username) && "1234".equals(password)) { 
+      
+        if ("admin".equals(username) && "123".equals(password)) {
+          
+            HttpSession session = request.getSession();
+            session.setAttribute("username", username);
+            session.setAttribute("role", "admin"); 
+            response.sendRedirect("listVattu.jsp"); 
+        } else if (username != null && !username.isEmpty() && password != null && !password.isEmpty()) {
+         
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
             response.sendRedirect("trangchu.jsp"); 
         } else {
-            response.sendRedirect("login.jsp?error=1");
+    
+            response.sendRedirect("login.jsp?error=Invalid credentials");
         }
     }
-}
+ }
+
 

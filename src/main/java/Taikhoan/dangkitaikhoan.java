@@ -14,13 +14,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/dangki")
+@WebServlet("/dangki")  // or @WebServlet("/Trangchu/dangki") depending on your URL structure
 public class dangkitaikhoan extends HttpServlet {
-
     // Cấu hình thông tin kết nối cơ sở dữ liệu
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/your_database_name";
-    private static final String DB_USER = "your_db_user";
-    private static final String DB_PASSWORD = "your_db_password";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/tt_project3_2210900129";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
@@ -41,13 +40,13 @@ public class dangkitaikhoan extends HttpServlet {
 
                 if (rs.next()) {
                     // Tài khoản đã tồn tại
-                    response.sendRedirect("dangki.jsp?error=1");
+                    response.sendRedirect("create.jsp?error=1");
                 } else {
                     // Thêm tài khoản mới vào cơ sở dữ liệu
                     String insertQuery = "INSERT INTO taikhoan (TT_TaiKhoan, TT_Mat_Khau) VALUES (?, ?)";
                     PreparedStatement insertStmt = con.prepareStatement(insertQuery);
                     insertStmt.setString(1, username);
-                    insertStmt.setString(2, password); 
+                    insertStmt.setString(2, password);
 
                     int result = insertStmt.executeUpdate();
                     if (result > 0) {
@@ -55,16 +54,17 @@ public class dangkitaikhoan extends HttpServlet {
                         response.sendRedirect("login.jsp?message=Registration successful");
                     } else {
                         // Lỗi khi lưu dữ liệu
-                        response.sendRedirect("dangki.jsp?error=2");
+                        response.sendRedirect("create.jsp?error=2");
                     }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-                response.sendRedirect("dangki.jsp?error=3");
+                response.sendRedirect("create.jsp?error=3");
             }
         } else {
             // Mật khẩu không khớp
-            response.sendRedirect("dangki.jsp?error=4");
+            response.sendRedirect("create.jsp?error=4");
         }
     }
 }
+
